@@ -1,6 +1,8 @@
 #ifndef grdb_config_h
 #define grdb_config_h
 
+#define SQLITE_HAS_CODEC 1  // ← BU SATIRI EKLE
+
 #include <SQLCipher/sqlite3.h>
 
 typedef void(*_errorLogCallback)(void *pArg, int iErrCode, const char *zMsg);
@@ -12,15 +14,11 @@ static inline void _registerErrorLogCallback(_errorLogCallback callback) {
 }
 
 #if SQLITE_VERSION_NUMBER >= 3029000
-/// Wrapper around sqlite3_db_config() which is a variadic function that can't
-/// be used from Swift.
 static inline void _disableDoubleQuotedStringLiterals(sqlite3 *db) {
     sqlite3_db_config(db, SQLITE_DBCONFIG_DQS_DDL, 0, (void *)0);
     sqlite3_db_config(db, SQLITE_DBCONFIG_DQS_DML, 0, (void *)0);
 }
 
-/// Wrapper around sqlite3_db_config() which is a variadic function that can't
-/// be used from Swift.
 static inline void _enableDoubleQuotedStringLiterals(sqlite3 *db) {
     sqlite3_db_config(db, SQLITE_DBCONFIG_DQS_DDL, 1, (void *)0);
     sqlite3_db_config(db, SQLITE_DBCONFIG_DQS_DML, 1, (void *)0);
