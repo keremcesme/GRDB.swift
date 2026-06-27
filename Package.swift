@@ -38,6 +38,7 @@ if ProcessInfo.processInfo.environment["SPI_BUILDER"] == "1" {
     dependencies.append(.package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"))
 }
 
+// GRDB+SQLCipher: Uncomment those lines
 dependencies.append(.package(url: "https://github.com/sqlcipher/SQLCipher.swift.git", from: "4.11.0"))
 cSettings.append(.define("SQLITE_HAS_CODEC"))
 swiftSettings.append(.define("SQLITE_HAS_CODEC"))
@@ -58,6 +59,7 @@ let package = Package(
     ],
     dependencies: dependencies,
     targets: [
+        // GRDB+SQLCipher: Uncomment the GRDBSQLCipher target
         .target(
             name: "GRDBSQLCipher",
             dependencies: [.product(name: "SQLCipher", package: "SQLCipher.swift")]
@@ -65,6 +67,7 @@ let package = Package(
         .target(
             name: "GRDB",
             dependencies: [
+                // GRDB+SQLCipher: Uncomment the SQLCipher and GRDBSQLCipher dependencies
                 .product(name: "SQLCipher", package: "SQLCipher.swift"),
                 .target(name: "GRDBSQLCipher"),
             ],
