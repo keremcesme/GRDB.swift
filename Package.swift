@@ -60,13 +60,15 @@ let package = Package(
     targets: [
         .target(
             name: "GRDBSQLCipher",
-            dependencies: [.product(name: "SQLCipher", package: "SQLCipher.swift")]
+            dependencies: [
+                .product(name: "SQLCipher", package: "SQLCipher.swift")
+            ],
+            publicHeadersPath: "include"
         ),
         .target(
             name: "GRDB",
             dependencies: [
-                .product(name: "SQLCipher", package: "SQLCipher.swift"),
-                .target(name: "GRDBSQLCipher"),
+                .target(name: "GRDBSQLCipher")
             ],
             path: "GRDB",
             resources: [.copy("PrivacyInfo.xcprivacy")],
